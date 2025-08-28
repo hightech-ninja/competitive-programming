@@ -3,8 +3,8 @@ CXXFLAGS := -std=c++23
 
 .PHONY: run clean
 run:
-	$(CXX) $(CXXFLAGS) $(task).cpp -o $(task)
-	./$(task)
-	rm -rf $(task)
+	$(CXX) $(CXXFLAGS) $(task).cpp -o $(task).out
+	./$(task).out
+	rm -rf *.out
 clean:
-	rm -rf $(task)
+	rm -rf *.out
