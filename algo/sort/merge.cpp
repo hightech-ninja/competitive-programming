@@ -1,6 +1,8 @@
 #include <vector>
 #include <cassert>
 #include <print>
+#include <algorithm>
+#include <random>
 
 using namespace std;
 
@@ -47,32 +49,47 @@ int main() {
     input = {1, 2, 3, 4};
     expected = {1, 2, 3, 4};
     merge_sort(input);
-    assert(input == expected);
+    assert(is_sorted(input.begin(), input.end()));
     println("ok");
 
     input = {1, 2, 3, 4};
     expected = {1, 2, 3, 4};
     merge_sort(input);
-    assert(input == expected);
+    assert(is_sorted(input.begin(), input.end()));
     println("ok");
 
     input = {4, 3, 2, 1};
     expected = {1, 2, 3, 4};
     merge_sort(input);
-    assert(input == expected);
+    assert(is_sorted(input.begin(), input.end()));
     println("ok");
 
     input = {1, 3, 2, 4};
     expected = {1, 2, 3, 4};
     merge_sort(input);
-    assert(input == expected);
+    assert(is_sorted(input.begin(), input.end()));
     println("ok");
 
     input = {4, 1, 3, 2};
     expected = {1, 2, 3, 4};
     merge_sort(input);
-    assert(input == expected);
+    assert(is_sorted(input.begin(), input.end()));
     println("ok");
+
+    {
+        int tt = 1000, n = 100'000, min_val = 1, max_val = 1'000'000;
+        random_device rd;
+        mt19937 gen(rd());
+        uniform_int_distribution<> dis(min_val, max_val);
+        input.resize(n);
+        for (int t = 0; t < tt; ++t) {
+            for (int& val : input) {
+                val = dis(gen);
+            }
+        }
+        merge_sort(input);
+        assert(is_sorted(input.begin(), input.end()));
+    }
 
     return 0;
 }
