@@ -17,9 +17,9 @@ using namespace std;
 }
 
 [[maybe_unused]] int kadanes_dp_view(vector<int> const &arr) {
-  long long best = arr[0];
+  long long best = 0;
   long long bestSoFar = arr[0];
-  for (int i = 1; i < (int)arr.size(); ++i) {
+  for (int i = 0; i < (int)arr.size(); ++i) {
     best = max(best + arr[i], (long long)arr[i]);
     bestSoFar = max(bestSoFar, best);
   }
