@@ -27,11 +27,11 @@ int main() {
     int res;
 
     res = s->subarraySum({1, 1, 1}, 2);
-    println("res = {}", res);
+    println("res={}", res);
     assert(res == 2); println("ok");
 
     res = s->subarraySum({1, 2, 3}, 3);
-    println("res = {}", res);
+    println("res={}", res);
     assert(res == 2); println("ok");
 
     return 0;

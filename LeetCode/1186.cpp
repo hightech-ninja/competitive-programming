@@ -83,25 +83,25 @@ int main() {
 
   want = 4;
   res = s->maximumSum({1, -2, 0, 3});
-  println("res = {}\nwant={}", res, want);
+  println("res ={}\nwant={}", res, want);
   assert(res == want);
   println("ok");
 
   want = 3;
   res = s->maximumSum({1, -2, -2, 3});
-  println("res = {}\nwant={}", res, want);
+  println("res ={}\nwant={}", res, want);
   assert(res == want);
   println("ok");
 
   want = -1;
   res = s->maximumSum({-1, -1, -1, -1});
-  println("res = {}\nwant={}", res, want);
+  println("res ={}\nwant={}", res, want);
   assert(res == want);
   println("ok");
 
   want = 7;
   res = s->maximumSum({1, -4, -5, -2, 5, 0, -1, 2});
-  println("res = {}\nwant={}", res, want);
+  println("res ={}\nwant={}", res, want);
   assert(res == want);
   println("ok");
 

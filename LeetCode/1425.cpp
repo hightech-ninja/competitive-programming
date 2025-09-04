@@ -55,18 +55,18 @@ int main() {
     int res;
 
     res = s->constrainedSubsetSum({10, 2, -10, 5, 20}, 2);
-    println("res = {}", res);
+    println("res={}", res);
     assert(res == 37); println("ok");
 
     res = s->constrainedSubsetSum({-1, -2, -3}, 1);
-    println("res = {}", res);
+    println("res={}", res);
     assert(res == -1);println("ok");
 
     res = s->constrainedSubsetSum({10, -2, -10, -5, 20}, 2);
-    println("res = {}", res);
+    println("res={}", res);
     assert(res == 23); println("ok");
 
     res = s->constrainedSubsetSum({-5266, 4019, 7336, -3681, -5767}, 2);
-    println("res = {}", res);
+    println("res={}", res);
     assert(res == 11355); println("ok");
 }
