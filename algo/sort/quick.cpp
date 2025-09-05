@@ -49,7 +49,42 @@ using namespace std;
     return wall;
 }
 
+int median_of_three(vector<int>& nums, int l, int r) {
+    int mid = (l + r) / 2;
+    if (nums[l] > nums[mid])
+        swap(nums[l], nums[mid]); // nums[l] <= nums[mid]
+    if (nums[mid] > nums[r])
+        swap(nums[mid], nums[r]); // nums[mid] <= nums[r], but ^ can be broken
+    if (nums[l] > nums[mid])
+        swap(nums[l], nums[mid]);
+    return mid;
+}
+
 // Gives O(n^2) in the worst case, but with low probability
+// because median of first, middle and last elements is closer
+// to the actual median value, then first or last element.
+[[maybe_unused]] int partition_median(vector<int>& nums, int l, int r) {
+    int mid = median_of_three(nums, l, r);
+    int pivot = nums[mid];
+    swap(nums[mid], nums[r-1]);
+
+    int wall = l;
+    /*
+      1. i <  wall => nums[i] <= pivot
+      2. i >= wall => nums[i] > pivot
+     */
+    for (int i = l; i + 1 < r; ++i) {
+        if (nums[i] <= pivot) {
+            swap(nums[wall], nums[i]);
+            ++wall;
+        }
+    }
+    // 3. put pivot on its sorted position
+    swap(nums[wall], nums[r - 1]);
+    return wall;
+}
+
+// Gives O(n^2) in the worst case, but with expotentially low probability
 [[maybe_unused]] int partition_random(vector<int>& nums, int l, int r) {
     int pivot_idx = l + (rand() % (r-l));
     swap(nums[pivot_idx], nums[r - 1]);
@@ -72,41 +107,6 @@ using namespace std;
         3. At the end pivot stands on its sorted position;
      */
     swap(nums[wall], nums[r-1]);
-    return wall;
-}
-
-
-// Gives O(n^2) in the worst case, but with even lower probability than random,
-// because median of first, median and last values is closer to the actual median value.
-int median_of_three(vector<int>& nums, int l, int r) {
-    int mid = (l + r) / 2;
-    if (nums[l] > nums[mid])
-        swap(nums[l], nums[mid]); // nums[l] <= nums[mid]
-    if (nums[mid] > nums[r])
-        swap(nums[mid], nums[r]); // nums[mid] <= nums[r], but ^ can be broken
-    if (nums[l] > nums[mid])
-        swap(nums[l], nums[mid]);
-    return mid;
-}
-
-[[maybe_unused]] int partition_median(vector<int>& nums, int l, int r) {
-    int mid = median_of_three(nums, l, r);
-    int pivot = nums[mid];
-    swap(nums[mid], nums[r-1]);
-
-    int wall = l;
-    /*
-      1. i <  wall => nums[i] <= pivot
-      2. i >= wall => nums[i] > pivot
-     */
-    for (int i = l; i + 1 < r; ++i) {
-        if (nums[i] <= pivot) {
-            swap(nums[wall], nums[i]);
-            ++wall;
-        }
-    }
-    // 3. put pivot on its sorted position
-    swap(nums[wall], nums[r - 1]);
     return wall;
 }
 
