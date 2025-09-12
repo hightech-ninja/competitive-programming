@@ -1,4 +1,5 @@
 #include <cassert>
+#include <functional>
 #include <print>
 #include <stack>
 #include <vector>
@@ -31,7 +32,7 @@ Notes:
   - Complexity: each index is pushed once and popped at most once -> O(n).
 */
 
-vector<int> next_greater_element(vector<int> const &nums) {
+vector<int> NGE(vector<int> const &nums) {
   int n = (int)nums.size();
   vector<int> nge(n, -1);
   stack<int> st;
@@ -47,7 +48,10 @@ vector<int> next_greater_element(vector<int> const &nums) {
 }
 
 /*
-PLE via monotonic stack (increasing by value):
+PLE (consumer-centric) via monotonic stack (increasing by value):
+
+Consumer-centric:
+  - Finilize answer for arriving a[i].
 
 Intuition:
   - For each a[i], we want its nearest smaller on the left.
@@ -79,7 +83,7 @@ would pop them.
   - Complexity: each index is pushed once and popped at most once -> O(n).
 */
 
-vector<int> prev_less_element(vector<int> const &nums) {
+vector<int> PLE_consumer(vector<int> const &nums) {
   int n = (int)nums.size();
   vector<int> ple(n, -1);
   stack<int> st;
@@ -94,10 +98,64 @@ vector<int> prev_less_element(vector<int> const &nums) {
   return ple;
 }
 
+/*
+PLE (producer-centric) - key differences vs consumer approach:
+
+Producer-centric:
+  - Finilize answer on pop for mid element using prev top
+Output timing:
+  - Producer: finalize PLE[j] WHEN j is popped; survivors finalized at the end.
+Hook point:
+  - Producer: do work "on pop" (for j), not "after while" (for i).
+Tail work:
+  - Required: remaining stack entries get PLE from their below neighbor.
+Invariant:
+  - The stack keeps "live" PLE answers that will be finilized after a smaller
+    element found.
+  */
+vector<int> PLE_producer(vector<int> const &nums) {
+  int n = (int)nums.size();
+  vector<int> ans(n, -1);
+
+  vector<int> st;
+  st.reserve(n);
+  for (int i = 0; i < n; ++i) {
+    while (!st.empty() && nums[st.back()] >= nums[i]) {
+      int r = st.back();
+      st.pop_back();
+      int l = (st.empty() ? -1 : st.back());
+      ans[r] = l;
+    }
+    st.push_back(i);
+  }
+
+  // finilize survivors
+  n = (int)st.size();
+  for (int i = 1; i < n; ++i) {
+    ans[st[i]] = st[i - 1];
+  }
+  return ans;
+}
+
+void run_test(string name, function<vector<int>(vector<int> const &)> fn,
+              vector<pair<vector<int>, vector<int>>> tests) {
+  println("Testing:\t{}...", name);
+  for (auto const &test : tests) {
+    auto [nums, want] = test;
+    auto got = fn(nums);
+    if (want != got) {
+      println("nums:\t{}", nums);
+      println("want:\t{}", want);
+      println("got:\t{}", got);
+      assert(false);
+    }
+  }
+  println("OK");
+}
+
 int main() {
   vector<pair<vector<int>, vector<int>>> tests;
 
-  println("Next Greater Element...");
   tests = {
       {{1, 2, 3, 4}, {1, 2, 3, -1}},
       {{4, 3, 2, 1}, {-1, -1, -1, -1}},
@@ -112,19 +170,8 @@ int main() {
       {{3, 3, 4}, {2, 2, -1}},
       {{2, 3, 3}, {1, -1, -1}},
   };
-  for (auto const &test : tests) {
-    auto [nums, want] = test;
-    auto got = next_greater_element(nums);
-    if (want != got) {
-      println("nums:\t{}", nums);
-      println("want:\t{}", want);
-      println("got:\t{}", got);
-      assert(false);
-    }
-  }
-  println("OK");
+  run_test("Next Greater Element", NGE, tests);
 
-  println("Previous Less Element...");
   tests = {
       {{1, 2, 3, 4}, {-1, 0, 1, 2}},
       {{4, 3, 2, 1}, {-1, -1, -1, -1}},
@@ -139,17 +186,8 @@ int main() {
       {{3, 3, 4}, {-1, -1, 1}},
       {{2, 3, 3}, {-1, 0, 0}},
   };
-  for (auto const &test : tests) {
-    auto [nums, want] = test;
-    auto got = prev_less_element(nums);
-    if (want != got) {
-      println("nums:\t{}", nums);
-      println("want:\t{}", want);
-      println("got:\t{}", got);
-      assert(false);
-    }
-  }
-  println("OK");
+  run_test("Previous Less Element (consumer-centric)", PLE_consumer, tests);
+  run_test("Previous Less Element (producer-centric)", PLE_producer, tests);
 
   return 0;
 }
