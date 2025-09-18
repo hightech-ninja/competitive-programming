@@ -7,8 +7,12 @@
 using namespace std;
 
 /*
- *  Time: O(n(logn + logm)), m = max - min = max delta
- *  Space: O(1)
+ * Time: O(n(logn + logm)), m = max - min = max delta
+ * Space: O(1)
+ * Solution: Binary search on answer
+ *  - fn(dist) = number of pairs with distance <= dist;
+ *  - fn can be calculated with two pointers on sorted data;
+ *  - binary search two find first fn(dist) >= k;
  */
 class Solution {
 private:
