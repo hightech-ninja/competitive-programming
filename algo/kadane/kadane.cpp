@@ -1,7 +1,7 @@
 #include <functional>
-#include <vector>
-#include <print>
 #include <map>
+#include <print>
+#include <vector>
 
 using namespace std;
 
@@ -54,17 +54,17 @@ int main() {
   };
 
   for (auto s : solutions) {
-      for (auto test : tests) {
-          vector<int> input = test.second;
-          int want = test.first;
-          int got = s.second(input);
-          if (want != got) {
-              println("{} kadane's solution failed", s.first);
-              println("input = {}", input);
-              println("want = {}, got = {}", want, got);
-              break;
-          }
-     }
+    for (auto test : tests) {
+      vector<int> input = test.second;
+      int want = test.first;
+      int got = s.second(input);
+      if (want != got) {
+        println("{} kadane's solution failed", s.first);
+        println("input = {}", input);
+        println("want = {}, got = {}", want, got);
+        exit(1);
+      }
+    }
   }
 
   return 0;

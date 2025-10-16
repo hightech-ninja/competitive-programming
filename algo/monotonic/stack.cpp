@@ -147,7 +147,7 @@ void run_test(string name, function<vector<int>(vector<int> const &)> fn,
       println("nums:\t{}", nums);
       println("want:\t{}", want);
       println("got:\t{}", got);
-      assert(false);
+      exit(1);
     }
   }
   println("OK");
