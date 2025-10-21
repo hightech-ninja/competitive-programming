@@ -1,5 +1,5 @@
 CXX := g++
-CXXFLAGS := -std=c++23
+CXXFLAGS := -std=c++23 -Wall -Wextra -Werror
 
 .PHONY: run clean
 run:
