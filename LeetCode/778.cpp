@@ -11,6 +11,13 @@ using namespace std;
 /*
  * Time: O(n^2 * logn)
  * Space: O(n^2)
+ *
+ * Solution:
+ *  1. If (0, 0) -> (n, n) reachable with level L, then
+ *     it's reachable with any L' >= L;
+ *  2. For fixed L reachability can be found using BFS
+ *     (move to neighbours with level <= L);
+ *  3. So run binary search on the answer;
  */
 class Solution {
 private:
