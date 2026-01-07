@@ -21,12 +21,12 @@ public:
     vector<vector<int>> ans;
     ans.reserve(intervals.size());
     ans.push_back(intervals[0]);
-    for (auto const& interval : intervals) {
-        if (ans.back()[1] < interval[0]) {
-            ans.push_back(interval);
-            continue;
-        }
-        ans.back()[1] = max(ans.back()[1], interval[1]);
+    for (auto const &interval : intervals) {
+      if (ans.back()[1] < interval[0]) {
+        ans.push_back(interval);
+        continue;
+      }
+      ans.back()[1] = max(ans.back()[1], interval[1]);
     }
     return ans;
   }

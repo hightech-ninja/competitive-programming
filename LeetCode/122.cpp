@@ -30,7 +30,6 @@ public:
   }
 };
 
-
 /*
  * Time: O(n)
  * Space: O(1)
@@ -41,8 +40,8 @@ public:
     int n = (int)prices.size();
     int profit = 0;
     for (int i = 1; i < n; ++i) {
-        if (prices[i - 1] < prices[i])
-            profit += prices[i] - prices[i - 1];
+      if (prices[i - 1] < prices[i])
+        profit += prices[i] - prices[i - 1];
     }
     return profit;
   }

@@ -12,8 +12,8 @@ using namespace std;
  */
 class Solution {
 private:
-array<pair<int, int>, 4> moves{make_pair(-1, 0), make_pair(0, -1),
-                               make_pair(0, 1), make_pair(1, 0)};
+  array<pair<int, int>, 4> moves{make_pair(-1, 0), make_pair(0, -1),
+                                 make_pair(0, 1), make_pair(1, 0)};
 
   void visit(vector<vector<char>> &grid, int m, int n, int u, int v) {
     if (grid[u][v] != '1')

@@ -13,10 +13,11 @@ public:
     long long largest = nums[0];
     long long bestSoFar = nums[0];
     for (int r = 1; r < n; ++r) {
-        array<long long, 3> candidates{nums[r], nums[r] * smallest, nums[r] * largest};
-        smallest = *min_element(candidates.begin(), candidates.end());
-        largest = *max_element(candidates.begin(), candidates.end());
-        bestSoFar = max(bestSoFar, largest);
+      array<long long, 3> candidates{nums[r], nums[r] * smallest,
+                                     nums[r] * largest};
+      smallest = *min_element(candidates.begin(), candidates.end());
+      largest = *max_element(candidates.begin(), candidates.end());
+      bestSoFar = max(bestSoFar, largest);
     }
     return (int)bestSoFar;
   }

@@ -1,7 +1,6 @@
 #include <cassert>
 #include <iostream>
 #include <print>
-#include <stack>
 #include <vector>
 
 using namespace std;
@@ -25,12 +24,13 @@ public:
     vector<int> ans(n, 0);
     for (int r = 0; r < n; ++r) {
       while (!st.empty() && heights[st.back()] < heights[r]) {
-          // st.back() can see r, can't see after r
-          ans[st.back()]++; st.pop_back();
-          if (!st.empty()) {
-              // new st.back() can see prev st.back(), maybe more
-              ans[st.back()]++;
-          }
+        // st.back() can see r, can't see after r
+        ans[st.back()]++;
+        st.pop_back();
+        if (!st.empty()) {
+          // new st.back() can see prev st.back(), maybe more
+          ans[st.back()]++;
+        }
       }
       st.push_back(r);
     }

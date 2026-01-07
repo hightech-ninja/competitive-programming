@@ -6,5 +6,7 @@ run:
 	$(CXX) $(CXXFLAGS) $(task).cpp -o $(task).out
 	./$(task).out
 	rm -rf *.out
+build:
+	$(CXX) $(CXXFLAGS) $(task).cpp -o $(task).out
 clean:
 	rm -rf *.out

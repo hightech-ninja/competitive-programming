@@ -20,24 +20,24 @@ using namespace std;
 class Solution1 {
 private:
   int maxSubarraySum(vector<int> const &nums) {
-      int n = (int)nums.size();
-      long long best = 0LL;
-      long long bestSoFar = LLONG_MIN;
-      for (int r = 0; r < n; ++r) {
-          best = max(best + nums[r], (long long)nums[r]);
-          bestSoFar = max(bestSoFar, best);
-      }
-      return (int)bestSoFar;
+    int n = (int)nums.size();
+    long long best = 0LL;
+    long long bestSoFar = LLONG_MIN;
+    for (int r = 0; r < n; ++r) {
+      best = max(best + nums[r], (long long)nums[r]);
+      bestSoFar = max(bestSoFar, best);
+    }
+    return (int)bestSoFar;
   }
   int minSubarraySum(vector<int> const &nums) {
-      int n = (int)nums.size();
-      long long best = 0LL;
-      long long bestSoFar = LLONG_MAX;
-      for (int r = 0; r < n; ++r) {
-          best = min(best + nums[r], (long long)nums[r]);
-          bestSoFar = min(bestSoFar, best);
-      }
-      return (int)bestSoFar;
+    int n = (int)nums.size();
+    long long best = 0LL;
+    long long bestSoFar = LLONG_MAX;
+    for (int r = 0; r < n; ++r) {
+      best = min(best + nums[r], (long long)nums[r]);
+      bestSoFar = min(bestSoFar, best);
+    }
+    return (int)bestSoFar;
   }
 
 public:
@@ -46,7 +46,7 @@ public:
     int ansRegular = maxSubarraySum(nums);
     int ansCircular = sum - minSubarraySum(nums);
     if (ansRegular < 0) {
-        return ansRegular;
+      return ansRegular;
     }
     return max(ansRegular, ansCircular);
   }

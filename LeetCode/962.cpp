@@ -32,8 +32,9 @@ public:
     }
     for (int r = n - 1; r >= 0 && !st.empty(); --r) {
       while (!st.empty() && nums[st.top()] <= nums[r]) {
-          int l = st.top(); st.pop();
-          ans = max(ans, r - l);
+        int l = st.top();
+        st.pop();
+        ans = max(ans, r - l);
       }
     }
     return ans;

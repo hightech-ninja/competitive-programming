@@ -11,8 +11,7 @@ using namespace std;
  */
 class Solution {
 private:
-  int fixedOrder(vector<int> const &nums, int L,
-                                   int R) {
+  int fixedOrder(vector<int> const &nums, int L, int R) {
     int n = (int)nums.size();
     long long sumL = 0, sumR = 0;
     long long bestL = LLONG_MIN;
