@@ -1,5 +1,5 @@
 CXX := g++
-CXXFLAGS := -std=c++23 -Wall -Wextra -Werror
+CXXFLAGS := -std=c++23 -Wall -Wextra -Werror -fno-omit-frame-pointer -fsanitize=address,undefined
 
 .PHONY: run clean
 run:
