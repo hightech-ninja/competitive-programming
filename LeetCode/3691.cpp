@@ -1,6 +1,7 @@
 #include <algorithm>
 #include <cassert>
 #include <functional>
+#include <initializer_list>
 #include <iostream>
 #include <print>
 #include <queue>
@@ -8,7 +9,7 @@
 
 using namespace std;
 
-template <size_t N> constexpr array<size_t, N + 1> make_lg() {
+template <size_t N> consteval array<size_t, N + 1> make_lg() {
   array<size_t, N + 1> lg{};
   for (size_t i = 2; i <= N; ++i)
     lg[i] = lg[i / 2] + 1;
@@ -51,6 +52,10 @@ public:
   template <class It>
   explicit SparseTable(operation_t op, It first, It last) : _op(op) {
     init(first, last);
+  }
+
+  SparseTable(operation_t op, initializer_list<T> list) : _op(op) {
+    init(list.begin(), list.end());
   }
 
   // get result of operation_t on [l, r)
